@@ -1,6 +1,6 @@
 import numpy as np
 from colors import bcolors
-from matrix_utility import swap_row
+from matrix_utility import swap_row, MaxNorm
 
 
 def gaussianElimination(mat):
@@ -74,34 +74,27 @@ def backward_substitution(mat):
 
     return x
 
-if __name__ == '__main__':
 
-    #SOL
-    A_b = ([[1, 2, 3, 4, 5],
-            [2, 3, 4, 5, 1],
-            [8, 5, 8, 8, 1],
-            [1, 2, 3, 1, 8],
+if __name__ == '__main__':
+    A_b = ([[2, 1, 0, -3],
+            [3, -1, 0, 1],
+            [1, 4, -2, -5],
             ])
 
-    # INFINITY
-    # A_b = ([[2, 4, 6, 8],[1, 2, 3, 4],[3, 6, 9, 12]])
+    A = ([2, 1, 0],
+         [3, -1, 0],
+         [1, 4, -2],)
 
-    # INFINITY
-    # A_b = [[1,2,3,4],[0,0,0,0],[0,1,2,3]]
-
-    # NO SOL
-    # A_b = ([[0, 2, 3, 4, 5],[0, 3, 4, 5, 1],[0, 5, 8, 8, 1],[0, 2, 3, 1, 8],])
-
-    # NO SOL
-    # A_b = ([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 15]])
+    Norm = MaxNorm(A_b) + 4
+    print("The norm + 4 is: ", Norm)
 
     result = gaussianElimination(A_b)
     if isinstance(result, str):
-        print(bcolors.WARNING,result,bcolors.ENDC)
+        print(bcolors.WARNING, result, bcolors.ENDC)
     else:
-        print(bcolors.OKBLUE,"=====================================================================================================================")
-        print("Solution for the system:",bcolors.ENDC)
+        print(bcolors.OKBLUE,
+              "=====================================================================================================================")
+        print("Solution for the system:", bcolors.ENDC)
 
         for i in range(result.size):
-            print(bcolors.HEADER,f"X{i+1}",bcolors.ENDC,"= {:.6f}".format(result[i]))
-
+            print(bcolors.HEADER, f"X{i + 1}", bcolors.ENDC, "= {:.6f}".format(result[i]))
